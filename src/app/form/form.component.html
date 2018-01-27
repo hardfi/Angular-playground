@@ -1,0 +1,70 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form-app">
+  <div class="form-header">Tell us more about your experience!</div>
+  <div formGroupName="basicData">
+
+    <div class="ui-g">
+      <label for="username" class="ui-g-2">Username</label>
+      <span class="ui-g-3 ui-rtl"
+            dir="rtl"
+            *ngIf="!signupForm.get('basicData.username').valid && signupForm.get('basicData.username').touched">Name not valid</span>
+    </div>
+    <div class="ui-g">
+      <input type="text"
+             pInputText
+             id="username"
+             class="ui-g-5"
+             formControlName="username"/>
+    </div>
+
+    <div class="ui-g">
+      <label for="email" class="ui-g-2">Email</label>
+      <span class="ui-g-3 ui-rtl"
+            dir="rtl"
+            *ngIf="!signupForm.get('basicData.email').valid && signupForm.get('basicData.email').touched">Invalid email address</span>
+    </div>
+    <div class="ui-g">
+      <input type="text"
+             pInputText
+             id="email"
+             class="ui-g-5"
+             formControlName="email"/>
+    </div>
+
+    <div class="ui-g">
+      <label class="ui-g-12">Some selection</label>
+      <p-radioButton name="radio"
+                     value="one"
+                     label="Yes"
+                     formControlName="radio">
+      </p-radioButton>
+      <p-radioButton name="radio"
+                     value="two"
+                     label="No"
+                     formControlName="radio">
+      </p-radioButton>
+      <p-radioButton name="radio"
+                     value="three"
+                     label="Other..."
+                     formControlName="radio">
+      </p-radioButton>
+    </div>
+  </div>
+
+  <div formGroupName="extendedData"
+       *ngIf="signupForm.get('basicData.radio').value == 'three'">
+    <div class="ui-g">
+      <label for="address" class="ui-g-2">Can you explain?</label>
+      <span class="ui-g-3 ui-rtl"
+            dir="rtl"
+            *ngIf="!signupForm.get('extendedData.address').valid && signupForm.get('extendedData.address').touched">Write something...</span>
+    </div>
+    <div class="ui-g">
+      <input type="text"
+             pInputText
+             id="address"
+             class="ui-g-5"
+             formControlName="address"/>
+    </div>
+  </div>
+
+</form>
