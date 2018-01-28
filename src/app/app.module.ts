@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ButtonModule, InputTextModule, MenubarModule, InputTextareaModule, CardModule, PanelModule, DropdownModule, CheckboxModule, RadioButtonModule} from 'primeng/primeng';
+import { ButtonModule, InputTextModule, MenubarModule, InputTextareaModule, CardModule, PanelModule, DropdownModule, CheckboxModule, RadioButtonModule, TabViewModule} from 'primeng/primeng';
 import { AppComponent } from './app.component';
 import { Router, RouterModule} from "@angular/router";
 import { FormComponent } from './form/form.component';
@@ -26,6 +26,7 @@ import { ReactiveFormsModule} from "@angular/forms";
     DropdownModule,
     CheckboxModule,
     RadioButtonModule,
+    TabViewModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'form', pathMatch: 'full' },
       { path: 'form', component: FormComponent},
@@ -43,6 +44,7 @@ import { ReactiveFormsModule} from "@angular/forms";
     DropdownModule,
     CheckboxModule,
     RadioButtonModule,
+    TabViewModule,
     // ReactiveFormsModule
   ],
   providers: [],

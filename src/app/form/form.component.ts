@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
   radio = ['right', 'left', 'middle'];
   forbiddenNames = ['admin', 'bullshit', 'fuck'];
   paymentMethod: string = 'bank';
+  index: number;
 
   constructor(private fb: FormBuilder) {  }
 
@@ -25,7 +26,7 @@ export class FormComponent implements OnInit {
       }),
       extendedData: this.fb.group({
         address: [],
-        random: new FormArray([])
+        // random: new FormArray([])
       }),
       paymentDetails: this.fb.group({
         bank: this.fb.group(this.bankValidation()),
@@ -36,20 +37,29 @@ export class FormComponent implements OnInit {
     this.signupForm.get('basicData.radio').valueChanges.subscribe(
       (radio: string) => {
         if (radio === 'three') {
-          console.log('three')
           this.signupForm.get('extendedData.address').setValidators([Validators.required, Validators.minLength(5)]);
         } else {
-          console.log('not three')
           this.signupForm.get('extendedData.address').clearValidators();
         }
         this.signupForm.get('extendedData.address').updateValueAndValidity();
       }
     );
+    this.setValidation();
   }
 
   setPaymentMethodType() {
-    this.paymentMethod === 'bank' ? this.paymentMethod = 'card' : this.paymentMethod = 'bank';
+    const activeTab = document.querySelector('p-tabview li');
+    if (activeTab.classList.contains('ui-state-active')) {
+      console.log('card')
+      this.paymentMethod = 'card';
+    } else {
+      console.log('bank')
+      this.paymentMethod = 'bank';
+    }
+    this.setValidation();
+  }
 
+  setValidation() {
     const ctrl = (<any>this.signupForm).controls.paymentDetails;
     const bankCtrl = ctrl.controls.bank;
     const cardCtrl = ctrl.controls.card;
@@ -102,10 +112,10 @@ export class FormComponent implements OnInit {
     return model;
   }
 
-  onAddData() {
-    const control = new FormControl(null, Validators.required);
-    (<FormArray>this.signupForm.get('extendedData.random')).push(control);
-  }
+  // onAddData() {
+  //   const control = new FormControl(null, Validators.required);
+  //   (<FormArray>this.signupForm.get('extendedData.random')).push(control);
+  // }
 
   forbidden(control: FormControl): {[s: string]: boolean} {
     if (this.forbiddenNames.indexOf(control.value) !== -1) {
@@ -115,7 +125,8 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm);
-    this.signupForm.reset();
+    // console.log(this.signupForm);
+    // this.signupForm.reset();
+    console.log(document.querySelector('p-tabview li'));
   }
 }

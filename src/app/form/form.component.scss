@@ -1,3 +1,21 @@
-form span:not(.ui-radiobutton-icon) {
+form span.error {
   color: red;
 }
+
+form label, .form-header, span {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+form div[class^='ui-g-'],
+form label[class^='ui-g-'],
+form span[class^='ui-g-'] {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+ul.ui-tabview-nav {
+  border: none;
+}
+//input {
+//  width: 100% !important;
+//}

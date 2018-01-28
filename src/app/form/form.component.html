@@ -1,70 +1,169 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form-app">
   <div class="form-header">Tell us more about your experience!</div>
-  <div formGroupName="basicData">
 
-    <div class="ui-g">
-      <label for="username" class="ui-g-2">Username</label>
-      <span class="ui-g-3 ui-rtl"
-            dir="rtl"
-            *ngIf="!signupForm.get('basicData.username').valid && signupForm.get('basicData.username').touched">Name not valid</span>
-    </div>
-    <div class="ui-g">
-      <input type="text"
-             pInputText
-             id="username"
-             class="ui-g-5"
-             formControlName="username"/>
+  <div class="ui-g-6">
+    <div formGroupName="basicData">
+
+      <div class="ui-g">
+        <label for="username" class="ui-g-6">Username</label>
+        <span class="ui-g-6 ui-rtl error"
+              dir="rtl"
+              *ngIf="!signupForm.get('basicData.username').valid && signupForm.get('basicData.username').touched">Name not valid</span>
+        <input type="text"
+               pInputText
+               id="username"
+               class="ui-g-12"
+               formControlName="username"/>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="ui-g">
+        <label for="email" class="ui-g-6">Email</label>
+        <span class="ui-g-6 ui-rtl error"
+              dir="rtl"
+              *ngIf="!signupForm.get('basicData.email').valid && signupForm.get('basicData.email').touched">Invalid email address</span>
+        <input type="text"
+               pInputText
+               id="email"
+               class="ui-g-12"
+               formControlName="email"/>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="ui-g">
+        <label class="ui-g-12">Some selection</label>
+        <p-radioButton name="radio"
+                       value="one"
+                       label="Yes"
+                       formControlName="radio">
+        </p-radioButton>
+        <p-radioButton name="radio"
+                       value="two"
+                       label="No"
+                       formControlName="radio">
+        </p-radioButton>
+        <p-radioButton name="radio"
+                       value="three"
+                       label="Other..."
+                       formControlName="radio">
+        </p-radioButton>
+      </div>
     </div>
 
-    <div class="ui-g">
-      <label for="email" class="ui-g-2">Email</label>
-      <span class="ui-g-3 ui-rtl"
-            dir="rtl"
-            *ngIf="!signupForm.get('basicData.email').valid && signupForm.get('basicData.email').touched">Invalid email address</span>
-    </div>
-    <div class="ui-g">
-      <input type="text"
-             pInputText
-             id="email"
-             class="ui-g-5"
-             formControlName="email"/>
-    </div>
+    <div class="spacer"></div>
 
-    <div class="ui-g">
-      <label class="ui-g-12">Some selection</label>
-      <p-radioButton name="radio"
-                     value="one"
-                     label="Yes"
-                     formControlName="radio">
-      </p-radioButton>
-      <p-radioButton name="radio"
-                     value="two"
-                     label="No"
-                     formControlName="radio">
-      </p-radioButton>
-      <p-radioButton name="radio"
-                     value="three"
-                     label="Other..."
-                     formControlName="radio">
-      </p-radioButton>
-    </div>
-  </div>
+    <div formGroupName="extendedData" class="ui-g" *ngIf="signupForm.get('basicData.radio').value == 'three'">
 
-  <div formGroupName="extendedData"
-       *ngIf="signupForm.get('basicData.radio').value == 'three'">
-    <div class="ui-g">
-      <label for="address" class="ui-g-2">Can you explain?</label>
-      <span class="ui-g-3 ui-rtl"
-            dir="rtl"
-            *ngIf="!signupForm.get('extendedData.address').valid && signupForm.get('extendedData.address').touched">Write something...</span>
-    </div>
-    <div class="ui-g">
+      <label for="address" class="ui-g-6">Can you explain?</label>
+      <div class="ui-g-6 ui-rtl" dir="rtl">
+          <span class="error" *ngIf="!signupForm.get('extendedData.address').valid && signupForm.get('extendedData.address').touched">Write something</span>
+      </div>
       <input type="text"
              pInputText
              id="address"
-             class="ui-g-5"
+             class="ui-g-12"
              formControlName="address"/>
     </div>
   </div>
+
+  <div class="ui-g-6">
+    <p-tabView (onChange)="setPaymentMethodType()">
+      <p-tabPanel (activeIndex)="index" header="Bank" leftIcon="fa-university">
+        <div formGroupName="paymentDetails" class="ui-g">
+          <div formGroupName="bank" class="ui-g-12">
+            <div class="ui-g">
+              <label for="accountNo" class="ui-g-6">Account Number</label>
+              <span class="ui-g-6 ui-rtl error"
+                    dir="rtl"
+                    *ngIf="!signupForm.get('paymentDetails.bank.accountNo').valid && signupForm.get('paymentDetails.bank.accountNo').touched">Account number invalid</span>
+              <input type="text"
+                     pInputText
+                     id="accountNo"
+                     class="ui-g-12"
+                     formControlName="accountNo"/>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="ui-g">
+              <label for="accountHolder" class="ui-g-6">Account Holder</label>
+              <span class="ui-g-6 ui-rtl error"
+                    dir="rtl"
+                    *ngIf="!signupForm.get('paymentDetails.bank.accountHolder').valid && signupForm.get('paymentDetails.bank.accountHolder').touched">Required</span>
+              <input type="text"
+                     pInputText
+                     id="accountHolder"
+                     class="ui-g-12"
+                     formControlName="accountHolder"/>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="ui-g">
+              <label for="routingNo" class="ui-g-6">Routing</label>
+              <span class="ui-g-6 ui-rtl error"
+                    dir="rtl"
+                    *ngIf="!signupForm.get('paymentDetails.bank.routingNo').valid && signupForm.get('paymentDetails.bank.routingNo').touched">Required</span>
+              <input type="text"
+                     pInputText
+                     id="routingNo"
+                     class="ui-g-12"
+                     formControlName="routingNo"/>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Card" leftIcon="fa-credit-card">
+        <div formGroupName="paymentDetails" class="ui-g">
+          <div formGroupName="card" class="ui-g-12">
+            <div class="ui-g">
+              <label for="cardNo" class="ui-g-6">Card Number</label>
+              <span class="ui-g-6 ui-rtl error"
+                    dir="rtl"
+                    *ngIf="!signupForm.get('paymentDetails.card.cardNo').valid && signupForm.get('paymentDetails.card.cardNo').touched">Card number invalid</span>
+              <input type="text"
+                     pInputText
+                     id="cardNo"
+                     class="ui-g-12"
+                     formControlName="cardNo"/>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="ui-g">
+              <label for="cardHolder" class="ui-g-6">Card Holder</label>
+              <span class="ui-g-6 ui-rtl error"
+                    dir="rtl"
+                    *ngIf="!signupForm.get('paymentDetails.card.cardHolder').valid && signupForm.get('paymentDetails.card.cardHolder').touched">Required</span>
+              <input type="text"
+                     pInputText
+                     id="cardHolder"
+                     class="ui-g-12"
+                     formControlName="cardHolder"/>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="ui-g">
+              <label for="expiry" class="ui-g-6">Expiry</label>
+              <span class="ui-g-6 ui-rtl error"
+                    dir="rtl"
+                    *ngIf="!signupForm.get('paymentDetails.card.expiry').valid && signupForm.get('paymentDetails.card.expiry').touched">Required</span>
+              <input type="text"
+                     pInputText
+                     id="expiry"
+                     class="ui-g-12"
+                     formControlName="expiry"/>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+
+  </div>
+
+  <p-button label="Submit" (click)="onSubmit()" [disabled]="!signupForm.valid"></p-button>
 
 </form>

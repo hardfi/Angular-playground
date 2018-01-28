@@ -25,3 +25,26 @@ input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid red !important;
 }
+
+.spacer {
+  width: 100%;
+  height: 10px;
+
+  &:before {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+//* {
+//  font-family: 'Roboto Condensed', sans-serif !important;
+//}
+//
+//.fa-circle:before {
+//  color: #186ba0;
+//}
+//
+//div[class^='ui-g'] {
+//  margin: 0;
+//  padding: 0;
+//}
